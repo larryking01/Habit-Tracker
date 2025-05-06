@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Habit Hero - Track Your Habits</title>
+        <link rel="stylesheet" href="css/styles.css">
+
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <!-- header section -->
+            <header>
+                <div class="logo">
+                    <i class="fas fa-fire"></i>
+                    <span>HabiTide</span>
+                </div>
+
+                <div class="hello-div">
+                    <h3>Hello there!</h3>
+                    <div class="user-profile">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </header>
+
+
+            <!-- welcome message -->
+             <div class="hero-section">
+                <div class="hero-text-section">
+                    <h2 class="hero-text-title">Track. Improve. Repeat.</h2>
+                    <p>Your habits shape your future—take control now.</p>
+                </div>
+
+                <div class="hero-image-section">
+                    <img src="assets/background2.jpg" alt="hero-section-background" 
+                        class="background-img" />
+                </div>
+             </div>
+
+            
+            <!-- add habit button -->
+            <button class="add-habit-btn" id="addHabitBtn">
+                <i class="fas fa-plus"></i> Add New Habit
+            </button>
+            
+
+            <!-- no habits initially -->
+            <p class="no-habits-text"></p>
+            
+            <!-- display habits grid -->
+            <div class="habits-grid">
+            </div>
+
+            
+
+
+            
+            <!-- stats section -->
+            <!-- <div class="stats-section">
+                <h3 class="section-title">
+                    <i class="far fa-calendar-alt"></i> Calendar View
+                </h3>
+
+                <div class="calendar">
+                    <div class="calendar-day header">S</div>
+                    <div class="calendar-day header">M</div>
+                    <div class="calendar-day header">T</div>
+                    <div class="calendar-day header">W</div>
+                    <div class="calendar-day header">T</div>
+                    <div class="calendar-day header">F</div>
+                    <div class="calendar-day header">S</div>
+                    
+                    <div class="calendar-day"></div>
+                    <div class="calendar-day"></div>
+                    <div class="calendar-day completed">1</div>
+                    <div class="calendar-day completed">2</div>
+                    <div class="calendar-day completed">3</div>
+                    <div class="calendar-day completed">4</div>
+                    <div class="calendar-day">5</div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+                
+                <p><i class="fas fa-chart-line"></i> Weekly Stats: 75% completion</p>
+                <p><i class="fas fa-trophy"></i> Longest streak: 14 days (Reading)</p>
+            </div> -->
+        </div>
+        
+
+        <!-- Add Habit Modal -->
+        <div class="modal" id="addHabitModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">
+                        <i class="fas fa-plus"></i> Create New Habit
+                    </h3>
+                    <button class="close-modal" id="closeModal">&times;</button>
+                </div>
+                
+                <form id="habitForm">
+                    <div class="form-group">
+                        <label for="habitName">Habit Title *</label>
+                        <input type="text" id="habitTitle" class="form-control" placeholder="e.g. Morning Run" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description *</label>
+                        <input type="text" id="description" class="form-control" placeholder="e.g. Study for test" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startTime">Start Time *</label>
+                        <input type="time" id="startTime" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endTime">End Time *</label>
+                        <input type="time" id="endTime" class="form-control" required>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label>Frequency</label>
+                        <select class="form-control">
+                            <option>Daily</option>
+                            <option>Weekly</option>
+                            <option>Custom</option>
+                        </select>
+                    </div> -->
+                    
+                    <!-- <div class="form-group">
+                        <label>Reminder</label>
+                        <select class="form-control">
+                            <option>No reminder</option>
+                            <option>8:00 AM</option>
+                            <option>12:00 PM</option>
+                            <option>6:00 PM</option>
+                            <option>9:00 PM</option>
+                        </select>
+                    </div> -->
+                    
+                    <!-- <div class="form-group">
+                        <label>Color</label>
+                        <div class="color-options">
+                            <div class="color-option selected" style="background-color: #FFEE93;"></div>
+                            <div class="color-option" style="background-color: #C1FBA4;"></div>
+                            <div class="color-option" style="background-color: #B8C0FF;"></div>
+                            <div class="color-option" style="background-color: #A2D2FF;"></div>
+                            <div class="color-option" style="background-color: #FFD6E0;"></div>
+                            <div class="color-option" style="background-color: #C8E7FF;"></div>
+                        </div>
+                    </div> -->
+                    
+                    <!-- <div class="form-group">
+                        <label for="streakGoal">Streak Goal (days)</label>
+                        <input type="number" id="streakGoal" class="form-control" value="30" min="1">
+                    </div> -->
+                    
+                    <div class="modal-footer">
+                        <button type="submit" id="createHabitBtn" class="btn btn-submit">
+                            Create Habit
+                        </button>
+
+                        <button type="button" class="btn btn-cancel" id="cancelAddHabit">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <script type="module" src="js/ui.js"></script>
+    </body>
+</html>
