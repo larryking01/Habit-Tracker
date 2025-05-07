@@ -16,7 +16,8 @@ html {
 :root {
     /* --primary: #2E86AB; */
     /* --primary: #f70ff7; */
-    --primary: #f72f0f;
+    /* --primary: #f72f0f; */
+    --primary: #4c1ee3;
     --secondary: #48A9A6;
     --accent: #F18F01;
     --light: #F5F5F5;
@@ -92,7 +93,7 @@ header {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--secondary);
+    background-color: var(--primary);
     color: white;
     display: flex;
     align-items: center;
@@ -149,7 +150,6 @@ header {
 
 .no-habits-text {
     display: block;
-    color: blue
 }
 
 .hide-no-habits-text {

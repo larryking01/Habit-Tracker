@@ -1,6 +1,5 @@
 // logic to dynamically update the UI
-import { addNewHabit, getAllHabits, clearAllHabits } from "./storage.js";
-
+import { addNewHabit, getAllHabits, clearAllHabits, generateUniqueID, deleteParticularHabit } from "./storage.js";
 
 
 let habitsGrid = document.querySelector(".habits-grid")
@@ -73,7 +72,7 @@ const generateHabits = ( ) => {
     let allHabits = getAllHabits()
 
     let habitsCardHTML = allHabits.map( habit => `
-        <div class="habit-card">
+        <div class="habit-card" id=${ habit.id }>
             <div class="habit-name">
                 <div class="habit-icon" style="background-color: #FFEE93;">
                     <i class="fa-solid fa-snowflake" style="color: #F18F01;"></i>
@@ -116,6 +115,27 @@ const generateHabits = ( ) => {
 
 
 
+// using event delegation to delete a selected habit
+habitsGrid.addEventListener("click", ( e ) => {
+    let target = e.target
+
+    if( target.classList.contains("fa-trash") || target.classList.contains("btn-delete") ) {
+        let deleteHabitID = target.closest(".habit-card").id
+
+        if( confirm("Are you sure you want to delete this habit?") ) {
+            deleteParticularHabit( deleteHabitID )
+            generateHabits()
+            showNoHabitsTextOrNot()
+        }
+
+    }
+
+})
+
+
+
+
+
 
 
 // creating a new habit.
@@ -143,7 +163,7 @@ habitForm.addEventListener("submit", ( e ) => {
 
     // proceeding to add a habit.
     let newHabit = {
-        id: 1,
+        id: generateUniqueID(),   // unique id
         title: habitTitleValue,
         description: habitDescriptionValue,
         startTime: habitStartTimeValue,

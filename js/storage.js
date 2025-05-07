@@ -1,3 +1,6 @@
+// generate unique ids for each habit object. Requires internet connection to load
+import { nanoid } from "https://cdn.skypack.dev/nanoid";
+
 // logic for persisting data with localStorage
 // {
 //     id: 1,
@@ -20,7 +23,10 @@
 let habitsArray = [ ]
 
 
-
+// function to generate unique ids for habit objects
+const generateUniqueID = ( ) => {
+    return nanoid()
+}
 
 
 
@@ -61,7 +67,13 @@ const clearAllHabits = ( ) => {
 
 
 
+// function to delete a selected habit
+const deleteParticularHabit = ( habitID ) => {
+    let habitsFromLocalStorage = getAllHabits().filter( habit => habit.id !== habitID )
+    localStorage.setItem("habitsArray", JSON.stringify( habitsFromLocalStorage ))
 
+    // return habitsFromLocalStorage
+}
 
 
 
@@ -76,8 +88,9 @@ const clearAllHabits = ( ) => {
 
 
 export {
-    habitsArray,
     addNewHabit,
     getAllHabits,
-    clearAllHabits
+    clearAllHabits,
+    generateUniqueID,
+    deleteParticularHabit
 }
