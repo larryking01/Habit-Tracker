@@ -101,6 +101,12 @@ header {
 }
 
 
+.add-delete-all-btn-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .add-habit-btn {
     background-color: var(--primary);
     color: white;
@@ -118,6 +124,28 @@ header {
 .add-habit-btn:hover {
     background-color: #1d6a8a;
 }
+
+
+.delete-all-habits-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.delete-all-habits-btn:hover {
+    background-color: #1d6a8a;
+}
+
+
+
 
 .no-habits-text {
     display: block;

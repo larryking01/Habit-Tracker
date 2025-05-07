@@ -1,10 +1,11 @@
 // logic to dynamically update the UI
-import { habitsArray, addNewHabit, getAllHabits } from "./storage.js";
+import { addNewHabit, getAllHabits, clearAllHabits } from "./storage.js";
 
 
 
 let habitsGrid = document.querySelector(".habits-grid")
 let noHabitsText = document.querySelector(".no-habits-text")
+let deleteAllHabitsBtn = document.querySelector(".delete-all-habits-btn")
 
 // Modal functionality
 let habitTitleInput = document.getElementById("habitTitle")
@@ -20,18 +21,49 @@ const createHabitBtn = document.getElementById("createHabitBtn")
 
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("length of habits array = ", habitsArray.length )
-    generateHabits()
+const showNoHabitsTextOrNot = () => {
+    let allHabitsFromLocalStorage = getAllHabits()
 
-    if( habitsArray.length > 0 ) {
+    if ( allHabitsFromLocalStorage ) {
         noHabitsText.style.display = "none"
+        console.log("length of habits array = ", allHabitsFromLocalStorage.length )
+        console.log("from dom loaded, all habits from local storage = ", allHabitsFromLocalStorage )
+        generateHabits()
+    
     }
     else {
+        console.log("from dom loaded, all habits from local storage = ", allHabitsFromLocalStorage )
         noHabitsText.textContent = "You have not added any habits yet. Add habits to start tracking"
         noHabitsText.style.display = "block"
+
     }
+
+}
+
+
+// function to delete all habits
+const deleteAllHabits = () => {
+    clearAllHabits()
+    showNoHabitsTextOrNot()
+    generateHabits()
+}
+
+
+deleteAllHabitsBtn.addEventListener("click", () => {
+    deleteAllHabits()
 })
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    showNoHabitsTextOrNot()
+    generateHabits()
+})
+
+
+
 
 
 
@@ -39,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
 const generateHabits = ( ) => {
     habitsGrid.innerHTML = ""
     let allHabits = getAllHabits()
-    console.log("all habits = ", allHabits )
 
     let habitsCardHTML = allHabits.map( habit => `
         <div class="habit-card">
@@ -52,7 +83,7 @@ const generateHabits = ( ) => {
 
 
             <div class="habit-description">
-                <p>${ habit.description.slice( 0, 50)}...</p>
+                <p>${ habit.description.slice( 0, 50) }...</p>
             </div>
 
 
@@ -131,10 +162,17 @@ habitForm.addEventListener("submit", ( e ) => {
 
 
     addNewHabit( newHabit )
-    
+    showNoHabitsTextOrNot()
     generateHabits()
 
+    // toggling modal display off
+    addHabitModal.style.display = "none"
 
+    // resetting form input values.
+    habitTitleInput.value = ""
+    descriptionInput.value = ""
+    startTimeInput.value = ""
+    endTimeInput.value = ""
 
 })
 
