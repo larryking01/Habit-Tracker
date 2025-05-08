@@ -1,5 +1,9 @@
 // logic to dynamically update the UI
-import { addNewHabit, getAllHabits, clearAllHabits, generateUniqueID, deleteParticularHabit } from "./storage.js";
+import { addNewHabit, getAllHabits, 
+         clearAllHabits, generateUniqueID, 
+         deleteParticularHabit, updateParticularHabit,
+         getCurrentHabit
+       } from "./storage.js";
 
 
 let habitsGrid = document.querySelector(".habits-grid")
@@ -18,6 +22,7 @@ const closeModal = document.getElementById('closeModal');
 const cancelAddHabit = document.getElementById('cancelAddHabit');
 const createHabitBtn = document.getElementById("createHabitBtn")
 
+let modalTitle = document.querySelector(".modal-title")
 
 
 const showNoHabitsTextOrNot = () => {
@@ -25,8 +30,8 @@ const showNoHabitsTextOrNot = () => {
 
     if ( allHabitsFromLocalStorage ) {
         noHabitsText.style.display = "none"
-        console.log("length of habits array = ", allHabitsFromLocalStorage.length )
-        console.log("from dom loaded, all habits from local storage = ", allHabitsFromLocalStorage )
+        // console.log("length of habits array = ", allHabitsFromLocalStorage.length )
+        // console.log("from dom loaded, all habits from local storage = ", allHabitsFromLocalStorage )
         generateHabits()
     
     }
@@ -48,8 +53,19 @@ const deleteAllHabits = () => {
 }
 
 
+// function to reset modal input values
+const resetModalInputValues = ( ) => {
+    habitTitleInput.value = ""
+    descriptionInput.value = ""
+    startTimeInput.value = ""
+    endTimeInput.value = ""
+}
+
+
 deleteAllHabitsBtn.addEventListener("click", () => {
-    deleteAllHabits()
+    if( confirm("All your habits will be deleted permanently. Do you want to continue?")) {
+        deleteAllHabits()
+    }
 })
 
 
@@ -114,10 +130,12 @@ const generateHabits = ( ) => {
 }
 
 
-
+let currentHabitID = ""
+let currentHabit = ""
 // using event delegation to delete a selected habit
 habitsGrid.addEventListener("click", ( e ) => {
-    let target = e.target
+    let target = e.target 
+    console.log( target )
 
     if( target.classList.contains("fa-trash") || target.classList.contains("btn-delete") ) {
         let deleteHabitID = target.closest(".habit-card").id
@@ -127,6 +145,22 @@ habitsGrid.addEventListener("click", ( e ) => {
             generateHabits()
             showNoHabitsTextOrNot()
         }
+    }
+    else if( target.classList.contains("fa-edit") || target.classList.contains("btn-edit")) {
+        modalTitle.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Edit Habit`
+        createHabitBtn.textContent = "Edit Habit"
+        addHabitModal.style.display = "flex"
+
+        currentHabitID = target.closest(".habit-card").id
+        currentHabit = getCurrentHabit( currentHabitID )
+        console.log("current habit id = ", currentHabitID)
+        console.log("from edit clicked, current habit is ", currentHabit )
+
+        // filling modal inputs with already entered habit details
+        habitTitleInput.value = currentHabit.title
+        startTimeInput.value = currentHabit.startTime
+        endTimeInput.value = currentHabit.endTime
+        descriptionInput.value = currentHabit.description
 
     }
 
@@ -142,57 +176,118 @@ habitsGrid.addEventListener("click", ( e ) => {
 habitForm.addEventListener("submit", ( e ) => {
     e.preventDefault()
 
-    let habitTitleValue = habitTitleInput.value.trim()
-    let habitDescriptionValue = descriptionInput.value.trim()
-    let habitStartTimeValue = startTimeInput.value.trim()
-    let habitEndTimeValue = endTimeInput.value.trim()
+    // creating a new habit
+    if( modalTitle.innerHTML.includes("Create New Habit")) {
+        console.log( modalTitle.innerHTML )
+        console.log("this will create a habit")
 
-    if( !habitTitleValue ) {
-        alert("habit title is required")
+        let habitTitleValue = habitTitleInput.value.trim()
+        let habitDescriptionValue = descriptionInput.value.trim()
+        let habitStartTimeValue = startTimeInput.value.trim()
+        let habitEndTimeValue = endTimeInput.value.trim()
+    
+        if( !habitTitleValue ) {
+            alert("habit title is required")
+        }
+        if (!habitDescriptionValue ) {
+            alert("habit description is required")
+        }
+        if( !habitStartTimeValue ) {
+            alert("start time value is required")
+        }
+        if( !habitEndTimeValue ) {
+            alert("end time value is required")
+        }
+    
+    
+        // proceeding to add a habit.
+        let newHabit = {
+            id: generateUniqueID(),   // unique id
+            title: habitTitleValue,
+            description: habitDescriptionValue,
+            startTime: habitStartTimeValue,
+            endTime: habitEndTimeValue,
+            isCompleted: false,
+            setIsNotCompleted: () => {
+                this.isCompleted = false
+            },
+            setIsCompleted: () => {
+                this.isCompleted = true
+            },
+            backgroundColor: "red",
+            currentStreak: 0
+    
+        }
+    
+    
+        addNewHabit( newHabit )
+        showNoHabitsTextOrNot()
+        generateHabits()
+    
+        // toggling modal display off
+        addHabitModal.style.display = "none"
+    
+        // resetting form input values.
+        resetModalInputValues()
     }
-    if (!habitDescriptionValue ) {
-        alert("habit description is required")
+    else {
+        console.log( modalTitle.innerHTML )
+        console.log("this will update a habit")
+
+
+        let habitTitleValue = habitTitleInput.value.trim()
+        let habitDescriptionValue = descriptionInput.value.trim()
+        let habitStartTimeValue = startTimeInput.value.trim()
+        let habitEndTimeValue = endTimeInput.value.trim()
+
+        if( !habitTitleValue ) {
+            alert("habit title is required")
+        }
+        if (!habitDescriptionValue ) {
+            alert("habit description is required")
+        }
+        if( !habitStartTimeValue ) {
+            alert("start time value is required")
+        }
+        if( !habitEndTimeValue ) {
+            alert("end time value is required")
+        }
+
+
+        // proceeding to update habit.
+        let updatedHabit = {
+            id: generateUniqueID(),   // unique id
+            title: habitTitleValue,
+            description: habitDescriptionValue,
+            startTime: habitStartTimeValue,
+            endTime: habitEndTimeValue,
+            isCompleted: false,
+            setIsNotCompleted: () => {
+                this.isCompleted = false
+            },
+            setIsCompleted: () => {
+                this.isCompleted = true
+            },
+            backgroundColor: "red",
+            currentStreak: 0
+        }
+
+
+        console.log("current habit = ", currentHabit )
+        console.log("updated habit = ", updatedHabit )
+
+        updateParticularHabit( currentHabitID, updatedHabit )
+        showNoHabitsTextOrNot()
+        generateHabits()
+    
+        // toggling modal display off
+        addHabitModal.style.display = "none"
+    
+        // resetting form input values.
+        resetModalInputValues()
+
     }
-    if( !habitStartTimeValue ) {
-        alert("start time value is required")
-    }
-    if( !habitEndTimeValue ) {
-        alert("end time value is required")
-    }
 
-
-    // proceeding to add a habit.
-    let newHabit = {
-        id: generateUniqueID(),   // unique id
-        title: habitTitleValue,
-        description: habitDescriptionValue,
-        startTime: habitStartTimeValue,
-        endTime: habitEndTimeValue,
-        isCompleted: false,
-        setIsNotCompleted: () => {
-            this.isCompleted = false
-        },
-        setIsCompleted: () => {
-            this.isCompleted = true
-        },
-        backgroundColor: "red",
-        currentStreak: 0
-
-    }
-
-
-    addNewHabit( newHabit )
-    showNoHabitsTextOrNot()
-    generateHabits()
-
-    // toggling modal display off
-    addHabitModal.style.display = "none"
-
-    // resetting form input values.
-    habitTitleInput.value = ""
-    descriptionInput.value = ""
-    startTimeInput.value = ""
-    endTimeInput.value = ""
 
 })
 
@@ -201,20 +296,31 @@ habitForm.addEventListener("submit", ( e ) => {
 
 // modal functionality
 addHabitBtn.addEventListener('click', () => {
+    resetModalInputValues()
+    modalTitle.innerHTML = `<i class="fas fa-plus"></i> Create New Habit`
+    createHabitBtn.textContent = "Create Habit"
     addHabitModal.style.display = 'flex';
 });
 
 closeModal.addEventListener('click', () => {
+    resetModalInputValues()    
+    modalTitle.innerHTML = ""
+    createHabitBtn.textContent = ""
     addHabitModal.style.display = 'none';
 });
 
 cancelAddHabit.addEventListener('click', () => {
+    resetModalInputValues()
+    createHabitBtn.textContent = ""
+    modalTitle.innerHTML = ""
     addHabitModal.style.display = 'none';
 });
 
 // Close modal when clicking outside
 window.addEventListener('click', (e) => {
     if (e.target === addHabitModal) {
+        createHabitBtn.textContent = ""
+        modalTitle.innerHTML = ""
         addHabitModal.style.display = 'none';
     }
 });

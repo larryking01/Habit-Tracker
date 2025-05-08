@@ -104,7 +104,7 @@ header {
 
 .add-delete-all-btn-section {
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
 }
 
 
@@ -139,6 +139,7 @@ header {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-left: 10px;
 }
 
 .delete-all-habits-btn:hover {
@@ -340,7 +341,6 @@ header {
 /* modal styling */
 .modal {
     display: none;
-    /* display: block; */
     position: fixed;
     top: 0;
     left: 0;
