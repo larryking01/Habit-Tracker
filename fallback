@@ -1,0 +1,11 @@
+            <div class="progress-div">
+                <div class="progress-div-wrapper">
+                    <div class="progress-div-child"></div>
+                </div>
+            </div>
+
+
+
+            <div class="habit-description">
+                <p>${ habit.description.slice( 0, 50) }...</p>
+            </div>
