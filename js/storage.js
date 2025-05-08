@@ -87,7 +87,7 @@ const updateParticularHabit = ( currentHabitID, updatedHabit ) => {
     if( index !== -1 ) {
         habits[ index ] = updatedHabit
         localStorage.setItem("habitsArray", JSON.stringify( habits ))
-        console.log("updated habits run successfully")
+        // console.log("updated habits run successfully")
     }
 }
 
@@ -97,7 +97,7 @@ const updateParticularHabit = ( currentHabitID, updatedHabit ) => {
 const getCurrentHabit = ( habitID ) => {
     let habits = getAllHabits()
     let currentHabit = habits.find(( habit ) => habit.id === habitID )
-    console.log("from get current habits func, current habit = ", currentHabit )
+    // console.log("from get current habits func, current habit = ", currentHabit )
 
     return currentHabit
 }

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/larryking01/Habit-Tracker#readme",
   "dependencies": {
+    "bootstrap-icons": "^1.12.1",
     "nanoid": "^5.1.5"
   }
 }

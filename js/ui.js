@@ -15,6 +15,7 @@ let habitTitleInput = document.getElementById("habitTitle")
 let descriptionInput = document.getElementById("description")
 let startTimeInput = document.getElementById("startTime")
 let endTimeInput = document.getElementById("endTime")
+let numberOfDaysInput = document.getElementById("numberOfDays")
 let habitForm = document.getElementById("habitForm")
 const addHabitBtn = document.getElementById('addHabitBtn');
 const addHabitModal = document.getElementById('addHabitModal');
@@ -36,7 +37,7 @@ const showNoHabitsTextOrNot = () => {
     
     }
     else {
-        console.log("from dom loaded, all habits from local storage = ", allHabitsFromLocalStorage )
+        // console.log("from dom loaded, all habits from local storage = ", allHabitsFromLocalStorage )
         noHabitsText.textContent = "You have not added any habits yet. Add habits to start tracking"
         noHabitsText.style.display = "block"
 
@@ -70,16 +71,10 @@ deleteAllHabitsBtn.addEventListener("click", () => {
 
 
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
     showNoHabitsTextOrNot()
     generateHabits()
 })
-
-
-
-
 
 
 // functionality to display habits
@@ -90,10 +85,19 @@ const generateHabits = ( ) => {
     let habitsCardHTML = allHabits.map( habit => `
         <div class="habit-card" id=${ habit.id }>
             <div class="habit-name">
-                <div class="habit-icon" style="background-color: #FFEE93;">
-                    <i class="fa-solid fa-snowflake" style="color: #F18F01;"></i>
+                <div class="habit-header">
+                    <div class="habit-icon" style="background-color: #FFEE93;">
+                        <i class="fa-solid fa-snowflake" style="color: #4c1ee3;"></i>
+                    </div>
+
+                    <div>
+                        ${habit.title}
+                    </div>
                 </div>
-                ${habit.title}
+
+                <div>
+                    No. of days: ${ habit.numberOfDays }
+                </div>
             </div>
 
 
@@ -104,8 +108,16 @@ const generateHabits = ( ) => {
 
             <div class="habit-start-end-time">
                 <i class="fa-solid fa-clock habit-start-icon" style="color: #F18F01;"></i>
-                <p class="habit-start-time">${ habit.startTime }</p> --
+                <p class="habit-start-time">${ habit.startTime } </p> 
+                <i class="fa-solid fa-angles-right time-icon"></i>
                 <p class="habit-end-time">${ habit.endTime }</p>
+            </div>
+
+
+            <div class="progress-div">
+                <div class="progress-div-wrapper">
+                    <div class="progress-div-child"></div>
+                </div>
             </div>
 
             <div class="habit-actions">
@@ -135,7 +147,7 @@ let currentHabit = ""
 // using event delegation to delete a selected habit
 habitsGrid.addEventListener("click", ( e ) => {
     let target = e.target 
-    console.log( target )
+    // console.log( target )
 
     if( target.classList.contains("fa-trash") || target.classList.contains("btn-delete") ) {
         let deleteHabitID = target.closest(".habit-card").id
@@ -153,14 +165,15 @@ habitsGrid.addEventListener("click", ( e ) => {
 
         currentHabitID = target.closest(".habit-card").id
         currentHabit = getCurrentHabit( currentHabitID )
-        console.log("current habit id = ", currentHabitID)
-        console.log("from edit clicked, current habit is ", currentHabit )
+        // console.log("current habit id = ", currentHabitID)
+        // console.log("from edit clicked, current habit is ", currentHabit )
 
         // filling modal inputs with already entered habit details
         habitTitleInput.value = currentHabit.title
         startTimeInput.value = currentHabit.startTime
         endTimeInput.value = currentHabit.endTime
         descriptionInput.value = currentHabit.description
+        numberOfDaysInput.value = currentHabit.numberOfDays
 
     }
 
@@ -178,13 +191,14 @@ habitForm.addEventListener("submit", ( e ) => {
 
     // creating a new habit
     if( modalTitle.innerHTML.includes("Create New Habit")) {
-        console.log( modalTitle.innerHTML )
-        console.log("this will create a habit")
+        // console.log( modalTitle.innerHTML )
+        // console.log("this will create a habit")
 
         let habitTitleValue = habitTitleInput.value.trim()
         let habitDescriptionValue = descriptionInput.value.trim()
         let habitStartTimeValue = startTimeInput.value.trim()
         let habitEndTimeValue = endTimeInput.value.trim()
+        let numberOfDaysValue = numberOfDaysInput.value.trim()
     
         if( !habitTitleValue ) {
             alert("habit title is required")
@@ -202,20 +216,29 @@ habitForm.addEventListener("submit", ( e ) => {
     
         // proceeding to add a habit.
         let newHabit = {
-            id: generateUniqueID(),   // unique id
+            id: generateUniqueID(), 
             title: habitTitleValue,
             description: habitDescriptionValue,
             startTime: habitStartTimeValue,
             endTime: habitEndTimeValue,
             isCompleted: false,
+            currentStreak: 0,
+            numberOfDays: Math.round( numberOfDaysValue ),
+            incrementCurrentStreak: () => {
+                this.currentStreak++
+            },
+            decrementCurrentStreak: () => {
+                this.currentStreak--
+            },
+            resetCurrentStreak: ( ) => {
+                this.currentStreak = 0
+            },
             setIsNotCompleted: () => {
                 this.isCompleted = false
             },
             setIsCompleted: () => {
                 this.isCompleted = true
-            },
-            backgroundColor: "red",
-            currentStreak: 0
+            }
     
         }
     
@@ -231,14 +254,16 @@ habitForm.addEventListener("submit", ( e ) => {
         resetModalInputValues()
     }
     else {
-        console.log( modalTitle.innerHTML )
-        console.log("this will update a habit")
+        // console.log( modalTitle.innerHTML )
+        // console.log("this will update a habit")
 
 
         let habitTitleValue = habitTitleInput.value.trim()
         let habitDescriptionValue = descriptionInput.value.trim()
         let habitStartTimeValue = startTimeInput.value.trim()
         let habitEndTimeValue = endTimeInput.value.trim()
+        let numberOfDaysValue = numberOfDaysInput.value.trim()
+
 
         if( !habitTitleValue ) {
             alert("habit title is required")
@@ -256,25 +281,35 @@ habitForm.addEventListener("submit", ( e ) => {
 
         // proceeding to update habit.
         let updatedHabit = {
-            id: generateUniqueID(),   // unique id
+            id: generateUniqueID(),  
             title: habitTitleValue,
             description: habitDescriptionValue,
             startTime: habitStartTimeValue,
             endTime: habitEndTimeValue,
             isCompleted: false,
+            currentStreak: 0,
+            numberOfDays: Math.round( numberOfDaysValue ),
+            incrementCurrentStreak: () => {
+                this.currentStreak++
+            },
+            decrementCurrentStreak: () => {
+                this.currentStreak--
+            },
+            resetCurrentStreak: ( ) => {
+                this.currentStreak = 0
+            },
             setIsNotCompleted: () => {
                 this.isCompleted = false
             },
             setIsCompleted: () => {
                 this.isCompleted = true
             },
-            backgroundColor: "red",
-            currentStreak: 0
+
         }
 
 
-        console.log("current habit = ", currentHabit )
-        console.log("updated habit = ", updatedHabit )
+        // console.log("current habit = ", currentHabit )
+        // console.log("updated habit = ", updatedHabit )
 
         updateParticularHabit( currentHabitID, updatedHabit )
         showNoHabitsTextOrNot()
