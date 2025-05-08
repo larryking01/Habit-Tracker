@@ -206,7 +206,8 @@ header {
 .habit-start-end-time {
     display: flex;
     justify-content: start;
-    margin-top: 1rem
+    margin-top: 1rem;
+    margin-bottom: 1rem
 }
 
 .habit-start-time {
@@ -239,7 +240,7 @@ header {
     align-self: center;
 }
 
-.progress-div-wrapper {
+/* .progress-div-wrapper {
     position: relative;
     height: 1rem;
     width: 100%;
@@ -254,6 +255,37 @@ header {
     width: 50%;
     background-color: var(--primary);
     border-radius: 0.625rem;
+} */
+
+
+.streak-progress-div {
+    display: flex;
+    justify-content: start;
+}
+
+.streak-progress-div span {
+    font-weight: bold;
+}
+
+
+.streak-progress-div i {
+    margin-right: 0.3rem;
+    color: var(--accent)
+}
+
+
+.missed-days {
+    margin-left: 1rem
+}
+
+
+.habit-actions-div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.habit-actions-div > button {
+    margin-right: 0.4rem
 }
 
 
@@ -277,8 +309,10 @@ header {
 
 .habit-actions {
     display: flex;
+    justify-content: end;
     gap: 0.625rem;
     margin-top: 0.938rem;
+
 }
 
 
@@ -487,15 +521,10 @@ header {
 /* mobile responsiveness */
 @media (max-width: 768px) {
 
-    /* body {
-        overflow: hidden;
-    } */
-
     .container {
         max-width: 40rem;
         margin: 0 auto;
         padding: 1.25rem;
-        /* background-color: red; */
         overflow-x: hidden;
     }
 
@@ -505,12 +534,6 @@ header {
     }
 
     .habit-card {
-        /* background-color: white;
-        border-radius: 0.5rem;
-        padding: 1.25rem;
-        box-shadow: 0 0.125rem 0.313rem rgba(0,0,0,0.1);
-        position: relative;
-        transition: transform 0.2s; */
         max-width: 38rem;
     }
     

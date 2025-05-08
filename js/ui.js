@@ -5,6 +5,8 @@ import { addNewHabit, getAllHabits,
          getCurrentHabit
        } from "./storage.js";
 
+import { markHabitAsCompleted } from "./habitTracker.js";
+
 
 let habitsGrid = document.querySelector(".habits-grid")
 let noHabitsText = document.querySelector(".no-habits-text")
@@ -101,10 +103,6 @@ const generateHabits = ( ) => {
             </div>
 
 
-            <div class="habit-description">
-                <p>${ habit.description.slice( 0, 50) }...</p>
-            </div>
-
 
             <div class="habit-start-end-time">
                 <i class="fa-solid fa-clock habit-start-icon" style="color: #F18F01;"></i>
@@ -114,11 +112,11 @@ const generateHabits = ( ) => {
             </div>
 
 
-            <div class="progress-div">
-                <div class="progress-div-wrapper">
-                    <div class="progress-div-child"></div>
-                </div>
+            <div class="streak-progress-div">
+                <p class="active-streak"><i class="fa-solid fa-fire-flame-simple"></i><span>Active streak</span>: ${ habit.currentStreak } days</p>
+                <p class="missed-days"><i class="fa-solid fa-xmark"></i><span>Missed days</span>: -</p>
             </div>
+
 
             <div class="habit-actions">
                 <button class="btn btn-complete" title="Mark as completed">
@@ -176,6 +174,14 @@ habitsGrid.addEventListener("click", ( e ) => {
         numberOfDaysInput.value = currentHabit.numberOfDays
 
     }
+    else if( target.classList.contains("fa-check") || target.classList.contains("btn-complete")) {
+        currentHabitID = target.closest(".habit-card").id
+        currentHabit = getCurrentHabit( currentHabitID )
+        console.log("current habit = ", currentHabit )
+
+        markHabitAsCompleted( currentHabitID )
+
+    }
 
 })
 
@@ -224,6 +230,7 @@ habitForm.addEventListener("submit", ( e ) => {
             isCompleted: false,
             currentStreak: 0,
             numberOfDays: Math.round( numberOfDaysValue ),
+            completionDates: [],
             incrementCurrentStreak: () => {
                 this.currentStreak++
             },
@@ -289,6 +296,7 @@ habitForm.addEventListener("submit", ( e ) => {
             isCompleted: false,
             currentStreak: 0,
             numberOfDays: Math.round( numberOfDaysValue ),
+            completionDates: [],
             incrementCurrentStreak: () => {
                 this.currentStreak++
             },
