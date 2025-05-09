@@ -1,24 +1,6 @@
 // generate unique ids for each habit object. Requires internet connection to load
 import { nanoid } from "https://cdn.skypack.dev/nanoid";
 
-// logic for persisting data with localStorage
-// {
-//     id: 1,
-//     title: "Watch Movie",
-//     description: "Visit the gym to exercise and stay physically active. Aim to build strength, improve endurance, and maintain a healthy lifestyle",
-//     startTime: "16:30",
-//     endTime: "20:00",
-//     isCompleted: false,
-//     setIsNotCompleted: () => {
-//         this.isCompleted = false
-//     },
-//     setIsCompleted: () => {
-//         this.isCompleted = true
-//     },
-//     backgroundColor: "red",
-//     currentStreak: 0
-// }
-
 
 let habitsArray = [ ]
 

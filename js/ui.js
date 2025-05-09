@@ -8,6 +8,7 @@ import { addNewHabit, getAllHabits,
 import { markHabitAsCompleted } from "./habitTracker.js";
 
 
+
 let habitsGrid = document.querySelector(".habits-grid")
 let noHabitsText = document.querySelector(".no-habits-text")
 let deleteAllHabitsBtn = document.querySelector(".delete-all-habits-btn")
@@ -48,6 +49,20 @@ const showNoHabitsTextOrNot = () => {
 }
 
 
+// const showDeleteAllHabitsBtn = () => {
+//     let allHabits = getAllHabits()
+
+//     if( !allHabits ) {
+//         deleteAllHabits.classList.replace("delete-all-habits-btn", "hide-delete-all-habits-btn")
+//     }
+//     else {
+//         deleteAllHabits.classList.replace("hide-all-habits-btn", "delete-all-habits-btn")
+//     }
+
+    
+// }
+
+
 // function to delete all habits
 const deleteAllHabits = () => {
     clearAllHabits()
@@ -68,6 +83,7 @@ const resetModalInputValues = ( ) => {
 deleteAllHabitsBtn.addEventListener("click", () => {
     if( confirm("All your habits will be deleted permanently. Do you want to continue?")) {
         deleteAllHabits()
+        // showDeleteAllHabitsBtn()
     }
 })
 
@@ -84,6 +100,8 @@ const generateHabits = ( ) => {
     habitsGrid.innerHTML = ""
     let allHabits = getAllHabits()
 
+    if( allHabits ) {
+
     let habitsCardHTML = allHabits.map( habit => `
         <div class="habit-card" id=${ habit.id }>
             <div class="habit-name">
@@ -92,13 +110,13 @@ const generateHabits = ( ) => {
                         <i class="fa-solid fa-snowflake" style="color: #4c1ee3;"></i>
                     </div>
 
-                    <div>
+                    <div class="habit-title-text">
                         ${habit.title}
                     </div>
                 </div>
 
                 <div>
-                    No. of days: ${ habit.numberOfDays }
+                    Duration: ${ habit.numberOfDays } days
                 </div>
             </div>
 
@@ -106,15 +124,14 @@ const generateHabits = ( ) => {
 
             <div class="habit-start-end-time">
                 <i class="fa-solid fa-clock habit-start-icon" style="color: #F18F01;"></i>
-                <p class="habit-start-time">${ habit.startTime } </p> 
-                <i class="fa-solid fa-angles-right time-icon"></i>
+                <p class="habit-start-time">${ habit.startTime } </p> -
                 <p class="habit-end-time">${ habit.endTime }</p>
             </div>
 
 
             <div class="streak-progress-div">
-                <p class="active-streak"><i class="fa-solid fa-fire-flame-simple"></i><span>Active streak</span>: ${ habit.currentStreak } days</p>
-                <p class="missed-days"><i class="fa-solid fa-xmark"></i><span>Missed days</span>: -</p>
+                <p class="active-streak"><i class="fa-solid fa-fire-flame-simple habit-start-icon"></i><span>Active streak</span>: ${ habit.currentStreak } day(s)</p>
+                <p class="missed-days"><i class="fa-solid fa-xmark habit-start-icon"></i><span>Missed days</span>: -</p>
             </div>
 
 
@@ -136,6 +153,8 @@ const generateHabits = ( ) => {
     `).join(" ")
 
     habitsGrid.innerHTML = habitsCardHTML
+    
+    }
 
 }
 
@@ -180,6 +199,8 @@ habitsGrid.addEventListener("click", ( e ) => {
         console.log("current habit = ", currentHabit )
 
         markHabitAsCompleted( currentHabitID )
+
+        generateHabits()
 
     }
 

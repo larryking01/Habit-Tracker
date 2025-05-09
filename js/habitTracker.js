@@ -33,7 +33,6 @@ const markHabitAsCompleted = ( currentHabitID ) => {
             habits[ index ].isCompleted = true
 
             localStorage.setItem("habitsArray", JSON.stringify( habits ))
-
             console.log("habit streak updated = ", habits[ index ])
 
         }

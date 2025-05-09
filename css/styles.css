@@ -25,6 +25,9 @@ html {
     --dark: #333;
     --success: #4CAF50;
     --danger: #F44336;
+    --complete-btn-hover: #069e20;
+    --edit-btn-hover: #064d8c;
+    --delete-btn-hover: #bf0616;
 }
 
 
@@ -91,6 +94,11 @@ header {
 }
 
 
+.hello-there-text {
+    font-size: 1.2rem;
+}
+
+
 .user-profile {
     width: 2.5rem;
     height: 2.5rem;
@@ -128,6 +136,9 @@ header {
     background-color: #1d6a8a;
 }
 
+.hide-delete-all-habits-btn {
+    display: none;
+}
 
 .delete-all-habits-btn {
     background-color: var(--primary);
@@ -226,7 +237,7 @@ header {
 .habit-start-icon {
     align-self: center;
     margin-right: 0.5rem;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 
 }
 
@@ -259,8 +270,8 @@ header {
 
 
 .streak-progress-div {
-    display: flex;
-    justify-content: start;
+    /* display: flex;
+    justify-content: start; */
 }
 
 .streak-progress-div span {
@@ -275,7 +286,15 @@ header {
 
 
 .missed-days {
-    margin-left: 1rem
+    /* margin-left: 1rem */
+}
+
+.active-streak {
+    margin-bottom: 1rem;
+}
+
+.habit-title-text {
+    font-size: 1.2rem;
 }
 
 
@@ -330,16 +349,32 @@ header {
 .btn-complete {
     background-color: var(--success);
     color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-complete:hover {
+    background-color: var(--complete-btn-hover);
 }
 
 .btn-edit {
     background-color: var(--secondary);
     color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit:hover {
+    background-color: var(--edit-btn-hover);
 }
 
 .btn-delete {
     background-color: var(--danger);
     color: white;
+    background-color: var(--);
+    transition: background-color 0.3s ease;
+}
+
+.btn-delete:hover {
+    background-color: var(--delete-btn-hover);
 }
 
 
