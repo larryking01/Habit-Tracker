@@ -99,6 +99,10 @@ header {
 }
 
 
+/* .hero-text-title {
+    font-size: 8rem
+} */
+
 .user-profile {
     width: 2.5rem;
     height: 2.5rem;
@@ -379,66 +383,6 @@ header {
 
 
 
-
-/* stats section styling */
-/* .stats-section {
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-}
-
-.section-title {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: var(--primary);
-}
-
-.calendar {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    margin-bottom: 20px;
-}
-
-.calendar-day {
-    text-align: center;
-    padding: 8px;
-    border-radius: 4px;
-}
-
-.calendar-day.header {
-    font-weight: bold;
-    background-color: var(--light);
-}
-
-.calendar-day.completed {
-    background-color: var(--success);
-    color: white;
-}
-
-.calendar-day.missed {
-    background-color: #ffebee;
-    color: var(--danger);
-}
-
-.progress-bar {
-    height: 20px;
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    margin: 15px 0;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background-color: var(--accent);
-    border-radius: 10px;
-} */
-
-
-
 /* modal styling */
 .modal {
     display: none;
@@ -592,5 +536,10 @@ header {
         border-radius: 50%;
         max-width: 28rem;
     }
+
+    .hero-text-title {
+        font-size: 2rem
+    }
+
     
 }
