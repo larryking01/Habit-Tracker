@@ -34,33 +34,16 @@ const showNoHabitsTextOrNot = () => {
 
     if ( allHabitsFromLocalStorage ) {
         noHabitsText.style.display = "none"
-        // console.log("length of habits array = ", allHabitsFromLocalStorage.length )
-        // console.log("from dom loaded, all habits from local storage = ", allHabitsFromLocalStorage )
         generateHabits()
     
     }
     else {
-        // console.log("from dom loaded, all habits from local storage = ", allHabitsFromLocalStorage )
         noHabitsText.textContent = "You have not added any habits yet. Add habits to start tracking"
         noHabitsText.style.display = "block"
 
     }
 
 }
-
-
-// const showDeleteAllHabitsBtn = () => {
-//     let allHabits = getAllHabits()
-
-//     if( !allHabits ) {
-//         deleteAllHabits.classList.replace("delete-all-habits-btn", "hide-delete-all-habits-btn")
-//     }
-//     else {
-//         deleteAllHabits.classList.replace("hide-all-habits-btn", "delete-all-habits-btn")
-//     }
-
-    
-// }
 
 
 // function to delete all habits
@@ -83,7 +66,6 @@ const resetModalInputValues = ( ) => {
 deleteAllHabitsBtn.addEventListener("click", () => {
     if( confirm("All your habits will be deleted permanently. Do you want to continue?")) {
         deleteAllHabits()
-        // showDeleteAllHabitsBtn()
     }
 })
 
@@ -161,10 +143,10 @@ const generateHabits = ( ) => {
 
 let currentHabitID = ""
 let currentHabit = ""
+
 // using event delegation to delete a selected habit
 habitsGrid.addEventListener("click", ( e ) => {
     let target = e.target 
-    // console.log( target )
 
     if( target.classList.contains("fa-trash") || target.classList.contains("btn-delete") ) {
         let deleteHabitID = target.closest(".habit-card").id
@@ -182,8 +164,6 @@ habitsGrid.addEventListener("click", ( e ) => {
 
         currentHabitID = target.closest(".habit-card").id
         currentHabit = getCurrentHabit( currentHabitID )
-        // console.log("current habit id = ", currentHabitID)
-        // console.log("from edit clicked, current habit is ", currentHabit )
 
         // filling modal inputs with already entered habit details
         habitTitleInput.value = currentHabit.title
@@ -218,8 +198,6 @@ habitForm.addEventListener("submit", ( e ) => {
 
     // creating a new habit
     if( modalTitle.innerHTML.includes("Create New Habit")) {
-        // console.log( modalTitle.innerHTML )
-        // console.log("this will create a habit")
 
         let habitTitleValue = habitTitleInput.value.trim()
         let habitDescriptionValue = descriptionInput.value.trim()
@@ -282,9 +260,6 @@ habitForm.addEventListener("submit", ( e ) => {
         resetModalInputValues()
     }
     else {
-        // console.log( modalTitle.innerHTML )
-        // console.log("this will update a habit")
-
 
         let habitTitleValue = habitTitleInput.value.trim()
         let habitDescriptionValue = descriptionInput.value.trim()
@@ -336,10 +311,6 @@ habitForm.addEventListener("submit", ( e ) => {
 
         }
 
-
-        // console.log("current habit = ", currentHabit )
-        // console.log("updated habit = ", updatedHabit )
-
         updateParticularHabit( currentHabitID, updatedHabit )
         showNoHabitsTextOrNot()
         generateHabits()
@@ -388,12 +359,3 @@ window.addEventListener('click', (e) => {
         addHabitModal.style.display = 'none';
     }
 });
-
-// Color selection
-// const colorOptions = document.querySelectorAll('.color-option');
-// colorOptions.forEach(option => {
-//     option.addEventListener('click', () => {
-//         colorOptions.forEach(opt => opt.classList.remove('selected'));
-//         option.classList.add('selected');
-//     });
-// });

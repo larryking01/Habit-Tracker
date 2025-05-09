@@ -1,10 +1,15 @@
 {
   "name": "habittracker1",
   "version": "1.0.0",
+  "type": "module",
   "description": "Simple app that allows users to log their habits, keep track of them and keep up with their progress",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom",
+    "transform": {}
   },
   "repository": {
     "type": "git",
@@ -19,6 +24,10 @@
   "homepage": "https://github.com/larryking01/Habit-Tracker#readme",
   "dependencies": {
     "bootstrap-icons": "^1.12.1",
+    "jest": "^29.7.0",
     "nanoid": "^5.1.5"
+  },
+  "devDependencies": {
+    "jest-environment-jsdom": "^29.7.0"
   }
 }

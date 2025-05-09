@@ -1,5 +1,5 @@
 // generate unique ids for each habit object. Requires internet connection to load
-import { nanoid } from "https://cdn.skypack.dev/nanoid";
+import { nanoid } from "nanoid";
 
 
 let habitsArray = [ ]
@@ -15,12 +15,7 @@ const generateUniqueID = ( ) => {
 // function to dynamically add a habit to the habitsArray.
 const addNewHabit = ( habit ) => {
     habitsArray = JSON.parse(localStorage.getItem("habitsArray")) || []
-    // console.log("from initial add habits array = ", habitsArray )
-
-    // adding a new habit using the spread operator
     habitsArray = [ ...habitsArray, habit ]
-
-    // console.log("after adding, habits array = ", habitsArray)
 
     // persisting the habits data with local storage.
     localStorage.setItem("habitsArray", JSON.stringify( habitsArray ))
@@ -34,7 +29,6 @@ const getAllHabits = ( ) => {
     let allHabitsFromLocalStorage = localStorage.getItem("habitsArray")
     if( allHabitsFromLocalStorage ) {
         allHabitsFromLocalStorage = JSON.parse( allHabitsFromLocalStorage ) || [ ]
-        // console.log("from get habits, all habits from local storage = ", allHabitsFromLocalStorage )
 
         return allHabitsFromLocalStorage
     }
@@ -54,7 +48,6 @@ const deleteParticularHabit = ( habitID ) => {
     let habitsFromLocalStorage = getAllHabits().filter( habit => habit.id !== habitID )
     localStorage.setItem("habitsArray", JSON.stringify( habitsFromLocalStorage ))
 
-    // return habitsFromLocalStorage
 }
 
 
@@ -63,13 +56,10 @@ const deleteParticularHabit = ( habitID ) => {
 const updateParticularHabit = ( currentHabitID, updatedHabit ) => {
     let habits = getAllHabits()
     let index = habits.findIndex( habit => habit.id === currentHabitID )
-    // console.log("updated habit = ", updatedHabit )
-    // console.log("current habit = ", habits[ index ])
 
     if( index !== -1 ) {
         habits[ index ] = updatedHabit
         localStorage.setItem("habitsArray", JSON.stringify( habits ))
-        // console.log("updated habits run successfully")
     }
 }
 
@@ -79,14 +69,9 @@ const updateParticularHabit = ( currentHabitID, updatedHabit ) => {
 const getCurrentHabit = ( habitID ) => {
     let habits = getAllHabits()
     let currentHabit = habits.find(( habit ) => habit.id === habitID )
-    // console.log("from get current habits func, current habit = ", currentHabit )
 
     return currentHabit
 }
-
-
-
-
 
 
 
