@@ -544,5 +544,13 @@ header {
     .hero-text-section {
         margin-top: 1rem
     }
+
+    #addHabitBtn {
+        font-size: 1rem
+    }
+
+    #deleteHabitBtn {
+        font-size: 1rem;
+    }
     
 }
