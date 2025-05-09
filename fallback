@@ -9,3 +9,6 @@
             <div class="habit-description">
                 <p>${ habit.description.slice( 0, 50) }...</p>
             </div>
+
+
+                <i class="fa-solid fa-angles-right time-icon"></i>

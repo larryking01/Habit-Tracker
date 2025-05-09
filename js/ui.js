@@ -98,7 +98,7 @@ const generateHabits = ( ) => {
                 </div>
 
                 <div>
-                    No. of days: ${ habit.numberOfDays }
+                    Duration: ${ habit.numberOfDays } days
                 </div>
             </div>
 
@@ -106,14 +106,13 @@ const generateHabits = ( ) => {
 
             <div class="habit-start-end-time">
                 <i class="fa-solid fa-clock habit-start-icon" style="color: #F18F01;"></i>
-                <p class="habit-start-time">${ habit.startTime } </p> 
-                <i class="fa-solid fa-angles-right time-icon"></i>
+                <p class="habit-start-time">${ habit.startTime } </p> -
                 <p class="habit-end-time">${ habit.endTime }</p>
             </div>
 
 
             <div class="streak-progress-div">
-                <p class="active-streak"><i class="fa-solid fa-fire-flame-simple"></i><span>Active streak</span>: ${ habit.currentStreak } days</p>
+                <p class="active-streak"><i class="fa-solid fa-fire-flame-simple"></i><span>Active streak</span>: ${ habit.currentStreak } day(s)</p>
                 <p class="missed-days"><i class="fa-solid fa-xmark"></i><span>Missed days</span>: -</p>
             </div>
 
@@ -180,6 +179,8 @@ habitsGrid.addEventListener("click", ( e ) => {
         console.log("current habit = ", currentHabit )
 
         markHabitAsCompleted( currentHabitID )
+
+        generateHabits()
 
     }
 
