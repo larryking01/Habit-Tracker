@@ -538,8 +538,11 @@ header {
     }
 
     .hero-text-title {
-        font-size: 2rem
+        font-size: 1.7rem
     }
 
+    .hero-text-section {
+        margin-top: 1rem
+    }
     
 }
